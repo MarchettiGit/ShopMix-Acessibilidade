@@ -3,17 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Teste</title>
-    <link rel="stylesheet" th:href="@{static/css/style.css}">
+    <title>ShopMix</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 </head>
-<body> 
-    <h1>Teste</h1>
+<body>
+<header class="header">
+    <div class="header-content">
+        <img src="/assets/imgs/login-shopmix/ShopMix 4x.png" alt="ShopMix Logo">
+        <div class="text">
+            <h1>Bem-vindo ao ShopMix</h1>
+            <p>Gerencie seus produtos de forma simples e rápida</p>
+        </div>
+    </div>
+</header>
+    <div class="main-container">
+        <div class="login">
+            <form>
+                <div class="mb-3">
+                    <h1>Faça seu login</h1>
+                    <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">Nós não vamos compartilhar seu email com ninguém!</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Sua senha</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Fazer Login</button>
+            </form>
+        </div>
+
+    </div>
+<div class="footer">
+    <div class="container">
+        <footer class="d-flex justify-content-center align-items-center py-3 my-4 border-top">
+            <span class="text-body-secondary">
+                &copy; 2025 Company, Inc
+            </span>
+        </footer>
+    </div>
+</div>
 
 
 
 
 
     <script th:src="@{/js/script.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
