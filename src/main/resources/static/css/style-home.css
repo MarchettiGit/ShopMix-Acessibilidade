@@ -1,0 +1,39 @@
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+.table img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+
+.product-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.product-img {
+    height: 200px;
+    object-fit: cover;
+}

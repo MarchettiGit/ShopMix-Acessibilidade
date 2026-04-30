@@ -9,23 +9,19 @@
         type: 'line',
         data: {
             labels: [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
+                'Janeiro',
+                'Fevereiro',
+                'Março',
+                'Abril',
+                'Maio'
             ],
             datasets: [{
                 data: [
-                    15339,
-                    21345,
-                    18483,
-                    24003,
-                    23489,
-                    24092,
-                    12034
+                    112,
+                    56,
+                    89,
+                    120,
+                    98
                 ],
                 lineTension: 0,
                 backgroundColor: 'transparent',

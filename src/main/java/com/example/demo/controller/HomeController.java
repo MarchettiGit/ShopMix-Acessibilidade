@@ -21,4 +21,15 @@ public class HomeController {
     public String homePage() {
         return "home";
     }
+
+    
+    @GetMapping("/anunciar")
+    public String paginaAnuncio() {
+        return "anunciar";
+    }
+
+    @PostMapping("/anunciar")
+    public String salvarProduto() {
+        return "redirect:/home";
+    }
 }
