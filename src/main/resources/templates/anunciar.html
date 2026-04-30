@@ -216,14 +216,14 @@
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">Dados do produto</h4>
 
-                <form class="needs-validation" novalidate>
+                <form action="/anuncios" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
 
                     <div class="row g-3">
 
                         <!-- NOME -->
                         <div class="col-12">
                             <label class="form-label">Nome do produto</label>
-                            <input type="text" class="form-control" id="nomeProduto" required>
+                            <input type="text" class="form-control" id="nomeProduto" name="nomeProduto" required>
                         </div>
 
                         <!-- DESCRIÇÃO -->
@@ -235,19 +235,19 @@
                         <!-- PREÇO -->
                         <div class="col-md-6">
                             <label class="form-label">Preço</label>
-                            <input type="number" class="form-control" id="precoProduto" required>
+                            <input type="number" class="form-control" id="precoProduto"  name="precoProduto" required>
                         </div>
 
                         <!-- ESTOQUE -->
                         <div class="col-md-6">
                             <label class="form-label">Quantidade em estoque</label>
-                            <input type="number" class="form-control" required>
+                            <input type="number" class="form-control"  name="quantEstoque" required>
                         </div>
 
                         <!-- CATEGORIA -->
                         <div class="col-md-6">
                             <label class="form-label">Categoria</label>
-                            <select class="form-select" required>
+                            <select name="categoria" class="form-select" required>
                                 <option value="">Selecione...</option>
                                 <option>Eletrônicos</option>
                                 <option>Roupas</option>
@@ -259,7 +259,7 @@
                         <!-- PLATAFORMA -->
                         <div class="col-md-6">
                             <label class="form-label">Plataforma</label>
-                            <select class="form-select" required>
+                            <select name="plataforma" class="form-select" required>
                                 <option value="">Selecione...</option>
                                 <option>Shopee</option>
                                 <option>Mercado Livre</option>
@@ -269,7 +269,7 @@
                         <!-- IMAGEM -->
                         <div class="col-12">
                             <label class="form-label">Imagem do produto</label>
-                            <input type="file" class="form-control" id="imagemProduto">
+                            <input type="file" class="form-control" id="imagemProduto" name="imagemProduto">
                         </div>
 
                     </div>
@@ -278,12 +278,12 @@
 
                     <!-- OPÇÕES -->
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="freteGratis">
+                        <input type="checkbox" class="form-check-input" id="freteGratis" name="freteGratis">
                         <label class="form-check-label">Frete grátis</label>
                     </div>
 
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="ativo" checked>
+                        <input type="checkbox" class="form-check-input" id="ativo" name="ativo" checked>
                         <label class="form-check-label">Anúncio ativo</label>
                     </div>
 
@@ -302,6 +302,5 @@
         src="/js/checkout.js"
         class="astro-vvvwv3sm"
 ></script>
-<script src="checkout.js" class="astro-vvvwv3sm"></script>
 </body>
 </html>

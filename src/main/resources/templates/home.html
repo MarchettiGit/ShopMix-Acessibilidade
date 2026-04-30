@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html xmlns:th="http://www.thymeleaf.org"   data-bs-theme="auto">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -439,54 +439,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>19</td>
-                            <td>Teste Pedidos</td>
-                            <td>
-                                <img src="https://via.placeholder.com/40" class="rounded">
-                            </td>
-                            <td>R$ 21,36</td>
-                            <td>R$ 121,36</td>
-                            <td>
-                                <span class="badge bg-success">A enviar</span>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary">👁</button>
-                                <button class="btn btn-sm btn-outline-secondary">🖨</button>
-                            </td>
-                        </tr>
+                        <tr th:each="pedido : ${pedidos}">
+                            <td th:text="${pedido.id}"></td>
+                            <td th:text="${pedido.clienteNome}"></td>
 
-                        <tr>
-                            <td>15</td>
-                            <td>Teste Pedidos</td>
                             <td>
-                                <img src="https://via.placeholder.com/40" class="rounded">
+                                <img th:src="${pedido.produtoImagem}" width="40" class="rounded">
                             </td>
-                            <td>R$ 39,09</td>
-                            <td>R$ 119,09</td>
-                            <td>
-                                <span class="badge bg-success">A enviar</span>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary">👁</button>
-                                <button class="btn btn-sm btn-outline-secondary">🖨</button>
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <td>13</td>
-                            <td>Teste Drop</td>
+                            <td>R$ <span th:text="${pedido.frete}"></span></td>
+                            <td>R$ <span th:text="${pedido.total}"></span></td>
+
                             <td>
-                                <img src="https://via.placeholder.com/40" class="rounded">
+        <span class="badge bg-success"
+              th:text="${pedido.status}">
+        </span>
                             </td>
-                            <td>R$ 21,36</td>
-                            <td>R$ 62,42</td>
+
                             <td>
-                                <span class="badge bg-success">A enviar</span>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary">👁</button>
-                                <button class="btn btn-sm btn-outline-secondary">🖨</button>
+                                <a class="btn btn-sm btn-outline-primary"
+                                   th:href="@{/pedido/{id}(id=${pedido.id})}">
+                                    👁
+                                </a>
                             </td>
                         </tr>
                         </tbody>
@@ -499,45 +473,27 @@
 
                 <div class="row g-4">
 
-                    <!-- PRODUTO 1 -->
-                    <div class="col-md-4">
+                    <div class="col-md-4" th:each="produto : ${produtos}">
                         <div class="card product-card h-100">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top product-img" alt="Produto">
-                            <div class="card-body">
-                                <h5 class="card-title">Kit Skincare Básico</h5>
-                                <p class="card-text">Limpeza e hidratação para o dia a dia.</p>
-                                <p class="fw-bold text-primary">R$ 59,90</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- PRODUTO 2 -->
-                    <div class="col-md-4">
-                        <div class="card product-card h-100">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top product-img" alt="Produto">
-                            <div class="card-body">
-                                <h5 class="card-title">Relógio Smart</h5>
-                                <p class="card-text">Monitoramento completo + estilo.</p>
-                                <p class="fw-bold text-primary">R$ 199,90</p>
-                            </div>
-                        </div>
-                    </div>
+                            <img th:src="${produto.imagemUrl}" class="card-img-top">
 
-                    <!-- PRODUTO 3 -->
-                    <div class="col-md-4">
-                        <div class="card product-card h-100">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top product-img" alt="Produto">
                             <div class="card-body">
-                                <h5 class="card-title">Perfume Premium</h5>
-                                <p class="card-text">Fragrância marcante e sofisticada.</p>
-                                <p class="fw-bold text-primary">R$ 89,90</p>
+                                <h5 class="card-title" th:text="${produto.nome}"></h5>
+                                <p class="card-text" th:text="${produto.descricao}"></p>
+
+                                <p class="fw-bold text-primary">
+                                    R$ <span th:text="${produto.preco}"></span>
+                                </p>
                             </div>
+
                         </div>
                     </div>
 
                 </div>
             </section>
 
+            <!-- LISTA DE ANÚNCIOS DINÂMICA -->
             <section id="anuncios" class="mt-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
@@ -550,31 +506,45 @@
                     </a>
                 </div>
 
-                <!-- LISTA DE ANÚNCIOS -->
                 <div class="row g-4">
 
-                    <!-- EXEMPLO (DEPOIS VAI VIR DO BANCO) -->
-                    <div class="col-md-4">
+                    <!-- LOOP -->
+                    <div class="col-md-4" th:each="anuncio : ${anuncios}">
                         <div class="card h-100">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top">
+
+                            <img th:src="${anuncio.imagemUrl}" class="card-img-top">
 
                             <div class="card-body">
-                                <h5 class="card-title">Nome do Produto</h5>
-                                <p class="card-text">Descrição breve do produto...</p>
-                                <p class="fw-bold text-success">R$ 99,90</p>
+                                <h5 class="card-title" th:text="${anuncio.nome}"></h5>
+                                <p class="card-text" th:text="${anuncio.descricao}"></p>
+                                <p class="fw-bold text-success">
+                                    R$ <span th:text="${anuncio.preco}"></span>
+                                </p>
 
-                                <span class="badge bg-success">Ativo</span>
+                                <span class="badge"
+                                      th:classappend="${anuncio.ativo} ? 'bg-success' : 'bg-secondary'"
+                                      th:text="${anuncio.ativo} ? 'Ativo' : 'Inativo'">
+                    </span>
                             </div>
 
                             <div class="card-footer d-flex justify-content-between">
-                                <button class="btn btn-sm btn-outline-primary">Editar</button>
-                                <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                                <a class="btn btn-sm btn-outline-primary"
+                                   th:href="@{/anuncio/editar/{id}(id=${anuncio.id})}">
+                                    Editar
+                                </a>
+
+                                <form th:action="@{/anuncio/delete/{id}(id=${anuncio.id})}" method="post">
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        Excluir
+                                    </button>
+                                </form>
                             </div>
+
                         </div>
                     </div>
 
                 </div>
-            </section>
+            </section><!-- LISTA DE ANÚNCIOS DINÂMICA -->
 
         </main>
     </div>
