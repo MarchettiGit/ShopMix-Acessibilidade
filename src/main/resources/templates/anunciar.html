@@ -217,6 +217,7 @@
                 <h4 class="mb-3">Dados do produto</h4>
 
                 <form action="/anunciar" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
                     <div class="row g-3">
 

@@ -25,40 +25,26 @@
 
         <!-- ALERTA DE ERRO (BACK-END PREENCHE) -->
         <!-- Exemplo: renderizar se houver erro -->
-        <div id="errorMessage" class="alert alert-danger d-none">
+        <div th:if="${param.erro}" class="alert alert-danger">
             Email ou senha inválidos
         </div>
 
         <form action="/login" method="POST">
 
-            <!-- EMAIL -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <div th:if="${param.erro}" class="alert alert-danger">
+                Email ou senha inválidos
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">Email corporativo</label>
-                <input
-                        type="email"
-                        name="email"
-                        class="form-control"
-                        placeholder="Digite seu email"
-                        required
-                >
+                <input type="email" name="username" class="form-control" required>
             </div>
 
-            <!-- SENHA -->
             <div class="mb-3">
                 <label class="form-label">Senha</label>
-                <input
-                        type="password"
-                        name="password"
-                        class="form-control"
-                        placeholder="Digite sua senha"
-                        required
-                >
-            </div>
-
-            <!-- LEMBRAR -->
-            <div class="form-check mb-3">
-                <input type="checkbox" name="remember" class="form-check-input">
-                <label class="form-check-label">Lembrar de mim</label>
+                <input type="password" name="password" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">

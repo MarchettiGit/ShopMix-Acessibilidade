@@ -438,6 +438,18 @@
                             <th>Ações</th>
                         </tr>
                         </thead>
+
+                        <tbody>
+
+                        <!-- ALERT FORA DA TABELA -->
+                        </tbody>
+                    </table>
+
+                    <div th:if="${sucesso}" class="alert alert-success mt-3">
+                        Pedido entregue com sucesso!
+                    </div>
+
+                    <table class="table table-hover align-middle">
                         <tbody>
                         <tr th:each="pedido : ${pedidos}">
                             <td th:text="${pedido.id}"></td>
@@ -451,16 +463,20 @@
                             <td>R$ <span th:text="${pedido.total}"></span></td>
 
                             <td>
-        <span class="badge bg-success"
-              th:text="${pedido.status}">
-        </span>
+            <span class="badge"
+                  th:classappend="${pedido.status == 'ENTREGUE'} ? 'bg-success' : 'bg-warning'"
+                  th:text="${pedido.status}">
+            </span>
                             </td>
 
                             <td>
-                                <a class="btn btn-sm btn-outline-primary"
-                                   th:href="@{/pedido/{id}(id=${pedido.id})}">
-                                    👁
-                                </a>
+                                <form th:action="@{/pedidos/entregar/{id}(id=${pedido.id})}"
+                                      method="post"
+                                      style="display:inline;">
+                                    <button class="btn btn-sm btn-success">
+                                        Entregue
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         </tbody>
