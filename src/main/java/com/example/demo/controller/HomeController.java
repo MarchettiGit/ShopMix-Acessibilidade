@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @Controller
 public class HomeController {
@@ -40,8 +43,35 @@ public class HomeController {
     }
 
     @PostMapping("/anunciar")
-    public String salvarProduto(Produto produto) {
+    public String salvarProduto(@RequestParam("imagemFile") MultipartFile file,
+                                Produto produto) {
+
+        try {
+            if (!file.isEmpty()) {
+
+                String nomeArquivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+                // caminho REAL do projeto rodando
+                String caminho = new File("src/main/resources/static/uploads/").getAbsolutePath();
+
+                File pasta = new File(caminho);
+                if (!pasta.exists()) {
+                    pasta.mkdirs();
+                }
+
+                File destino = new File(pasta, nomeArquivo);
+                file.transferTo(destino);
+
+                // caminho que o navegador usa
+                produto.setImagemUrl("/uploads/" + nomeArquivo);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         produtoService.salvar(produto);
+
         return "redirect:/home";
     }
 

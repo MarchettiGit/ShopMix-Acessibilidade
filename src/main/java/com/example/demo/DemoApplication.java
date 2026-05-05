@@ -40,14 +40,14 @@ public class DemoApplication {
 
 				Pedido p1 = new Pedido();
 				p1.setClienteNome("Murilo");
-				p1.setProdutoImagem("/assets/imgs/Clientes/murilo.jpg");
+				p1.setProdutoImagem("/assets/imgs/Clientes/poltrona.jpg");
 				p1.setFrete(15);
 				p1.setTotal(120);
 				p1.setStatus("PENDENTE");
 
 				Pedido p2 = new Pedido();
 				p2.setClienteNome("João");
-				p2.setProdutoImagem("/resources/static/assets/imgs/Clientes/joao.jpg");
+				p2.setProdutoImagem("/resources/static/assets/imgs/Clientes/poltrona.jpg");
 				p2.setFrete(20);
 				p2.setTotal(200);
 				p2.setStatus("PENDENTE");

@@ -307,14 +307,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center gap-2" href="#anuncios">
-                                <svg class="bi" aria-hidden="true">
-                                    <use xlink:href="#cart"></use>
-                                </svg>
-                                Anunciar!
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link d-flex align-items-center gap-2" href="#products">
                                 <svg class="bi" aria-hidden="true">
                                     <use xlink:href="#people"></use>
@@ -322,6 +314,15 @@
                                 Produtos
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-2" href="#anuncios">
+                                <svg class="bi" aria-hidden="true">
+                                    <use xlink:href="#cart"></use>
+                                </svg>
+                                Anunciar!
+                            </a>
+                        </li>
+
                     </ul>
                     <h6
                             class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase"
@@ -393,7 +394,7 @@
                 </div>
             </div>
         </div>
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-5 py-4">
             <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
             >
@@ -425,33 +426,30 @@
                 </div>
 
                 <!-- Tabela -->
-                <div class="table-responsive">
+                <div class="table-responsive container-fluid px-4">
+
+                    <!-- ALERTA -->
+                    <div th:if="${sucesso}" class="alert alert-success mt-3">
+                        Pedido entregue com sucesso!
+                    </div>
+
+                    <!-- TABELA ÚNICA (CORRETO) -->
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                         <tr>
                             <th># Pedido</th>
                             <th>Cliente</th>
                             <th>Produto</th>
-                            <th>Frete</th>
-                            <th>Total</th>
+                            <th class="text-end">Frete</th>
+                            <th class="text-end">Total</th>
                             <th>Status</th>
                             <th>Ações</th>
                         </tr>
                         </thead>
 
                         <tbody>
-
-                        <!-- ALERT FORA DA TABELA -->
-                        </tbody>
-                    </table>
-
-                    <div th:if="${sucesso}" class="alert alert-success mt-3">
-                        Pedido entregue com sucesso!
-                    </div>
-
-                    <table class="table table-hover align-middle">
-                        <tbody>
                         <tr th:each="pedido : ${pedidos}">
+
                             <td th:text="${pedido.id}"></td>
                             <td th:text="${pedido.clienteNome}"></td>
 
@@ -459,16 +457,27 @@
                                 <img th:src="${pedido.produtoImagem}" width="40" class="rounded">
                             </td>
 
-                            <td>R$ <span th:text="${pedido.frete}"></span></td>
-                            <td>R$ <span th:text="${pedido.total}"></span></td>
-
-                            <td>
-            <span class="badge"
-                  th:classappend="${pedido.status == 'ENTREGUE'} ? 'bg-success' : 'bg-warning'"
-                  th:text="${pedido.status}">
-            </span>
+                            <!-- FRETE -->
+                            <td class="text-end">
+                                <span class="text-muted me-1">R$</span>
+                                <span th:text="${#numbers.formatDecimal(pedido.frete, 1, 2)}"></span>
                             </td>
 
+                            <!-- TOTAL -->
+                            <td class="text-end fw-bold text-success">
+                                <span class="text-muted me-1">R$</span>
+                                <span th:text="${#numbers.formatDecimal(pedido.total, 1, 2)}"></span>
+                            </td>
+
+                            <!-- STATUS -->
+                            <td>
+                <span class="badge"
+                      th:classappend="${pedido.status == 'ENTREGUE'} ? 'bg-success' : 'bg-warning'"
+                      th:text="${pedido.status}">
+                </span>
+                            </td>
+
+                            <!-- AÇÃO -->
                             <td>
                                 <form th:action="@{/pedidos/entregar/{id}(id=${pedido.id})}"
                                       method="post"
@@ -478,9 +487,11 @@
                                     </button>
                                 </form>
                             </td>
+
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </section>
 
@@ -492,7 +503,9 @@
                     <div class="col-md-4" th:each="produto : ${produtos}">
                         <div class="card product-card h-100">
 
-                            <img th:src="${produto.imagemUrl}" class="card-img-top">
+                            <img th:src="${produto.imagemUrl}"
+                                 class="card-img-top"
+                                 style="height: 200px; object-fit: cover;">
 
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${produto.nome}"></h5>
