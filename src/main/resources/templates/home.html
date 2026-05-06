@@ -210,29 +210,31 @@
         ></path>
     </symbol>
 </svg>
-<header
-        class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow"
-        data-bs-theme="dark"
->
-    <!-- LOGO -->
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
         Shop Mix
     </a>
 
-    <!-- SIGN OUT (DIREITA) -->
+    <!-- BOTÃO MENU MOBILE -->
+    <button class="navbar-toggler d-md-none" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- LOGOUT -->
     <div class="px-3">
-        <form th:action="@{/logout}" method="post" class="d-inline">
+        <form th:action="@{/logout}" method="post">
             <button class="btn btn-outline-light btn-sm">
                 Sign Out
             </button>
         </form>
     </div>
+
 </header>
 <div class="container-fluid">
     <div class="row">
-        <div
-                class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"
-        >
+        <div class="sidebar col-md-3 col-lg-2 p-0 bg-body-tertiary collapse d-md-block">
             <div
                     class="offcanvas-md offcanvas-end bg-body-tertiary"
                     tabindex="-1"
@@ -313,7 +315,7 @@
                 </div>
             </div>
         </div>
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-5 py-4">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-3 px-md-5 py-4">
             <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
             >
@@ -339,28 +341,28 @@
 
             <div class="row g-3 g-md-5 mb-4 mt-5 mb-10">
 
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-md-3">
                     <div class="card text-bg-primary p-3">
                         <h6>Vendas do mês</h6>
                         <h3>R$ 12.500</h3>
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-md-3">
                     <div class="card text-bg-success p-3">
                         <h6>Pedidos</h6>
                         <h3>320</h3>
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-md-3">
                     <div class="card text-bg-warning p-3">
                         <h6>Produtos</h6>
                         <h3>58</h3>
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-md-3">
                     <div class="card text-bg-danger p-3">
                         <h6>Anúncios ativos</h6>
                         <h3>21</h3>
@@ -548,7 +550,7 @@
 ></script>
 <script src="/js/dashboard.js" class="astro-vvvwv3sm"></script>
 <script>
-    const sections = document.querySelectorAll("section");
+    const sections = document.querySelectorAll("main section");
     const navLinks = document.querySelectorAll(".nav-link");
 
     window.addEventListener("scroll", () => {
