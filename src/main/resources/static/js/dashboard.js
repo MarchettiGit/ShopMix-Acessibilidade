@@ -41,4 +41,26 @@
             }
         }
     })
+    new Chart(document.getElementById('chartPedidos'), {
+        type: 'bar',
+        data: {
+            labels: ['Shopee', 'Mercado Livre', 'Site'],
+            datasets: [{
+                data: [120, 90, 60],
+                backgroundColor: ['#0d6efd', '#198754', '#ffc107']
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('chartProdutos'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Eletrônicos', 'Roupas', 'Acessórios'],
+            datasets: [{
+                data: [40, 30, 20]
+            }]
+        }
+    });
+
+
 })()

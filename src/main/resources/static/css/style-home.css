@@ -37,3 +37,45 @@ section {
     height: 200px;
     object-fit: cover;
 }
+
+canvas {
+    max-height: 250px;
+}
+
+.sidebar {
+    position: sticky;
+    top: 56px; /* altura da navbar */
+    height: calc(100vh - 56px);
+}
+
+main {
+    margin-left: 250px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.sidebar .nav-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: 0.2s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e9ecef;
+    color: #000;
+}
+
+.sidebar .nav-link.active {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.sidebar .nav-link svg {
+    width: 18px;
+    height: 18px;
+}

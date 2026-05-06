@@ -3,6 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.model.Produto;
 import com.example.demo.service.ProdutoService;
 import com.example.demo.service.PedidoService;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,4 +97,30 @@ public class HomeController {
         produtoService.deletar(id);
         return "redirect:/home";
     }
+
+    @GetMapping("/export/pdf")
+    public void exportarPdf(HttpServletResponse response) throws Exception {
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=relatorio.pdf");
+
+        PdfWriter writer = new PdfWriter(response.getOutputStream());
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+
+        document.add(new Paragraph("RELATÓRIO DE PEDIDOS"));
+        document.add(new Paragraph(" "));
+
+        for (var pedido : pedidoService.listarTodos()) {
+            document.add(new Paragraph(
+                    "Pedido #" + pedido.getId() +
+                            " | Cliente: " + pedido.getClienteNome() +
+                            " | Total: R$ " + pedido.getTotal()
+            ));
+        }
+
+        document.close();
+    }
+
+
 }
