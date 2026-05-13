@@ -11,6 +11,7 @@ public class Usuario {
 
     private String email;
     private String senha;
+    private String cargo;
 
     // Getter e Setter para ID
     public Long getId() {
@@ -37,5 +38,13 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 }

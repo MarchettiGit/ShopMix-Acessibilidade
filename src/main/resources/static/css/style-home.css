@@ -79,3 +79,11 @@ html {
     width: 18px;
     height: 18px;
 }
+
+body {
+    overflow-x: hidden;
+}
+
+canvas {
+    max-width: 100%;
+}
