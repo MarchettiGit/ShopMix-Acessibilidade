@@ -73,8 +73,8 @@ public class HomeController {
                                 + file.getOriginalFilename();
 
                 String caminho =
-                        new File("src/main/resources/static/uploads/")
-                                .getAbsolutePath();
+                        System.getProperty("user.dir")
+                                + "/demo/src/main/resources/static/uploads/";
 
                 File pasta = new File(caminho);
 
@@ -98,25 +98,7 @@ public class HomeController {
         return "redirect:/home";
     }
 
-    @GetMapping("/anuncio/editar/{id}")
-    public String editar(@PathVariable Long id,
-                         Model model) {
 
-        model.addAttribute(
-                "anuncio",
-                produtoService.buscarPorId(id)
-        );
-
-        return "editar-anuncio";
-    }
-
-    @PostMapping("/anuncio/editar")
-    public String atualizar(Produto produto) {
-
-        produtoService.salvar(produto);
-
-        return "redirect:/home";
-    }
 
     @PostMapping("/anuncio/delete/{id}")
     public String deletar(@PathVariable Long id) {
@@ -196,5 +178,59 @@ public class HomeController {
         usuarioRepository.save(usuario);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/anuncio/editar/{id}")
+    public String editarAnuncio(@PathVariable Long id, Model model) {
+
+        Produto produto = produtoService.buscarPorId(id);
+
+        model.addAttribute("produto", produto);
+
+        return "anunciar";
+    }
+
+    @PostMapping("/anuncio/editar/{id}")
+    public String atualizar(
+            @PathVariable Long id,
+            @RequestParam("imagemFile") MultipartFile file,
+            Produto produto
+    ) {
+
+        try {
+
+            if (!file.isEmpty()) {
+
+                String nomeArquivo =
+                        System.currentTimeMillis()
+                                + "_"
+                                + file.getOriginalFilename();
+
+                String caminho =
+                        System.getProperty("user.dir")
+                                + "/demo/src/main/resources/static/uploads/";
+
+                File pasta = new File(caminho);
+
+                if (!pasta.exists()) {
+                    pasta.mkdirs();
+                }
+
+                File destino = new File(pasta, nomeArquivo);
+
+                file.transferTo(destino);
+
+                produto.setImagemUrl("/uploads/" + nomeArquivo);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        produto.setId(id);
+
+        produtoService.salvar(produto);
+
+        return "redirect:/home";
     }
 }
