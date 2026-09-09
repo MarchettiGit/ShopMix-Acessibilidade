@@ -135,6 +135,11 @@ textarea:focus-visible,
     background: #0b3d91;
     color: #ffffff;
 }
+.a11y-panel button.a11y-btn.a11y-btn-block {
+    flex: none;
+    width: 100%;
+    margin-top: 8px;
+}
 .a11y-panel button.a11y-reset {
     width: 100%;
     min-height: 44px;

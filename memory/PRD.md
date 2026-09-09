@@ -42,6 +42,11 @@ Arquivos modificados:
 - Integrado ao Bootstrap 5.3 (`data-bs-theme`) e ao `accessibility.js`: escolha salva em localStorage, 1ª visita respeita `prefers-color-scheme`, anúncio via aria-live, `aria-pressed`/`aria-label` dinâmicos, sem flash no carregamento.
 - CSS: `.theme-toggle` adapta cor ao contexto e fundo escuro aplicado às telas de login/cadastro.
 
+## Leitura por voz (2026-06)
+- Seção "Leitura por voz" no painel de acessibilidade usando a Web Speech API nativa (`speechSynthesis`), sem back-end nem chaves externas; voz pt-BR quando disponível.
+- Recursos: "Ler a página" (lê o `<main>`/conteúdo principal), "Parar" e alternador "Ler itens ao focar" (lê o nome acessível de links/botões/campos/cards ao receber foco por teclado ou ao passar o mouse).
+- Preferência `readOnFocus` salva em localStorage; Esc interrompe a fala; seção se oculta se o navegador não suportar.
+
 ## Backlog / próximos passos
 - P1: Rodar localmente (Maven + MySQL) e validar com leitor de tela (NVDA/VoiceOver) + auditoria Lighthouse/axe.
 - P2: Páginas de carrinho e checkout acessíveis (não existem hoje — fora do escopo atual por escolha do usuário).
