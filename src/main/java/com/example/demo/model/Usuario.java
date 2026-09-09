@@ -9,11 +9,20 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nome;
     private String email;
     private String senha;
     private String cargo;
 
-    // Getter e Setter para ID
+    // Dados do empreendimento
+    private String nomeEmpreendimento;
+
+    @Column(length = 500)
+    private String descricaoEmpreendimento;
+
+    // Controle de primeiro acesso (tutorial de onboarding)
+    private Boolean primeiroAcesso;
+
     public Long getId() {
         return id;
     }
@@ -22,7 +31,14 @@ public class Usuario {
         this.id = id;
     }
 
-    // Getter e Setter para Email
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -31,7 +47,6 @@ public class Usuario {
         this.email = email;
     }
 
-    // Getter e Setter para Senha
     public String getSenha() {
         return senha;
     }
@@ -46,5 +61,29 @@ public class Usuario {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    public String getNomeEmpreendimento() {
+        return nomeEmpreendimento;
+    }
+
+    public void setNomeEmpreendimento(String nomeEmpreendimento) {
+        this.nomeEmpreendimento = nomeEmpreendimento;
+    }
+
+    public String getDescricaoEmpreendimento() {
+        return descricaoEmpreendimento;
+    }
+
+    public void setDescricaoEmpreendimento(String descricaoEmpreendimento) {
+        this.descricaoEmpreendimento = descricaoEmpreendimento;
+    }
+
+    public Boolean getPrimeiroAcesso() {
+        return primeiroAcesso;
+    }
+
+    public void setPrimeiroAcesso(Boolean primeiroAcesso) {
+        this.primeiroAcesso = primeiroAcesso;
     }
 }

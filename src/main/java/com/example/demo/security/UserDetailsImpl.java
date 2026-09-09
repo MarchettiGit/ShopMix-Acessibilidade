@@ -18,10 +18,11 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return List.of(
-                new SimpleGrantedAuthority(usuario.getCargo())
-        );
+        String cargo = usuario.getCargo();
+        if (cargo == null || cargo.isBlank()) {
+            cargo = "ROLE_USER";
+        }
+        return List.of(new SimpleGrantedAuthority(cargo));
     }
 
     @Override

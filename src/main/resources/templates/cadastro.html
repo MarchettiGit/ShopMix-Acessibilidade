@@ -29,29 +29,33 @@
          alt="Logotipo da ShopMix"
          style="max-width: 200px;">
 
-    <h1 class="mt-3">Cadastro de Usuário</h1>
+    <h1 class="mt-3">Criar sua conta</h1>
 
-    <p>Crie sua conta no ShopMix</p>
+    <p>Cadastre-se e crie o espaço de gerenciamento do seu empreendimento</p>
 
 </header>
 
 <main id="conteudo-principal"
-      class="container d-flex justify-content-center align-items-center"
-      style="min-height: 60vh;">
+      class="container d-flex justify-content-center align-items-center py-4">
 
     <section class="card p-4 shadow"
-             style="width:100%; max-width:450px;"
+             style="width:100%; max-width:520px;"
              aria-labelledby="titulo-cadastro">
 
         <h2 id="titulo-cadastro" class="h3 text-center mb-4">Cadastro</h2>
 
-        <!-- Mensagem de erro vinda do back-end -->
-        <div th:if="${param.erro}"
-             class="alert alert-danger"
-             role="alert"
-             aria-live="assertive">
-            A senha informada não atende aos requisitos. Ela deve ter no mínimo 8 caracteres,
-            incluindo pelo menos uma letra, um número e um símbolo.
+        <!-- Mensagens de erro vindas do back-end -->
+        <div th:if="${param.erro != null and param.erro[0] == 'senha'}"
+             class="alert alert-danger" role="alert" aria-live="assertive">
+            A senha não atende aos requisitos. Use no mínimo 8 caracteres, com pelo menos uma letra, um número e um símbolo.
+        </div>
+        <div th:if="${param.erro != null and param.erro[0] == 'confirmacao'}"
+             class="alert alert-danger" role="alert" aria-live="assertive">
+            A confirmação de senha não coincide com a senha informada.
+        </div>
+        <div th:if="${param.erro != null and param.erro[0] == 'email'}"
+             class="alert alert-danger" role="alert" aria-live="assertive">
+            Este e-mail já está cadastrado. Utilize outro e-mail ou faça login.
         </div>
 
         <form id="form-cadastro" action="/cadastro" method="POST" novalidate>
@@ -60,73 +64,70 @@
                    th:name="${_csrf.parameterName}"
                    th:value="${_csrf.token}" />
 
-            <!-- NOME -->
-            <div class="mb-3">
-                <label class="form-label" for="nome">Nome completo</label>
-                <input type="text"
-                       id="nome"
-                       name="nome"
-                       class="form-control"
-                       autocomplete="name"
-                       minlength="3"
-                       required>
-            </div>
+            <!-- DADOS DO USUÁRIO -->
+            <fieldset class="mb-4">
+                <legend class="h5 border-bottom pb-2">Dados do usuário</legend>
 
-            <!-- EMAIL -->
-            <div class="mb-3">
-                <label class="form-label" for="email">Email corporativo</label>
-                <input type="email"
-                       id="email"
-                       name="email"
-                       class="form-control"
-                       autocomplete="email"
-                       required>
-            </div>
-
-            <!-- SENHA -->
-            <div class="mb-3">
-                <label class="form-label" for="senha">Senha</label>
-                <input type="password"
-                       name="senha"
-                       id="senha"
-                       class="form-control"
-                       autocomplete="new-password"
-                       aria-describedby="ajuda-senha"
-                       pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"
-                       title="A senha deve ter no mínimo 8 caracteres, incluindo letra, número e símbolo."
-                       required>
-
-                <small id="ajuda-senha" class="text-muted d-block mt-1">
-                    A senha deve conter:
-                    <br>• no mínimo 8 caracteres
-                    <br>• pelo menos 1 letra
-                    <br>• pelo menos 1 número
-                    <br>• pelo menos 1 símbolo (por exemplo: @ $ ! % * # ? &amp;)
-                </small>
-            </div>
-
-            <!-- CONFIRMAR SENHA -->
-            <div class="mb-3">
-                <label class="form-label" for="confirmarSenha">Confirmar senha</label>
-                <input type="password"
-                       id="confirmarSenha"
-                       class="form-control"
-                       autocomplete="new-password"
-                       aria-describedby="erro-confirmacao"
-                       required>
-
-                <!-- Mensagem de erro próxima ao campo, anunciada dinamicamente -->
-                <div id="erro-confirmacao"
-                     class="invalid-feedback"
-                     aria-live="assertive"
-                     style="display:none;">
-                    As senhas não coincidem. Digite a mesma senha nos dois campos.
+                <div class="mb-3">
+                    <label class="form-label" for="nome">Nome completo *</label>
+                    <input type="text" id="nome" name="nome" class="form-control"
+                           autocomplete="name" minlength="3" required>
                 </div>
-            </div>
 
-            <button type="submit" class="btn btn-success w-100">
-                Criar conta
-            </button>
+                <div class="mb-3">
+                    <label class="form-label" for="email">E-mail *</label>
+                    <input type="email" id="email" name="email" class="form-control"
+                           autocomplete="email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="senha">Senha *</label>
+                    <input type="password" id="senha" name="senha" class="form-control"
+                           autocomplete="new-password" aria-describedby="ajuda-senha"
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"
+                           title="A senha deve ter no mínimo 8 caracteres, incluindo letra, número e símbolo."
+                           required>
+                    <small id="ajuda-senha" class="text-muted d-block mt-1">
+                        Mínimo de 8 caracteres, com pelo menos 1 letra, 1 número e 1 símbolo (@ $ ! % * # ? &amp;).
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="confirmarSenha">Confirmar senha *</label>
+                    <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-control"
+                           autocomplete="new-password" aria-describedby="erro-confirmacao" required>
+                    <div id="erro-confirmacao" class="invalid-feedback" aria-live="assertive" style="display:none;">
+                        As senhas não coincidem. Digite a mesma senha nos dois campos.
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- DADOS DO EMPREENDIMENTO -->
+            <fieldset class="mb-4">
+                <legend class="h5 border-bottom pb-2">Dados do empreendimento</legend>
+
+                <div class="mb-3">
+                    <label class="form-label" for="nomeEmpreendimento">Nome da loja / empreendimento *</label>
+                    <input type="text" id="nomeEmpreendimento" name="nomeEmpreendimento"
+                           class="form-control" required aria-describedby="ajuda-empreendimento">
+                    <small id="ajuda-empreendimento" class="text-muted d-block mt-1">
+                        Este nome aparecerá na sua página inicial. Ex.: Mercadinho do Bairro.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="descricaoEmpreendimento">Descrição do empreendimento</label>
+                    <textarea id="descricaoEmpreendimento" name="descricaoEmpreendimento"
+                              class="form-control" rows="3"
+                              placeholder="Conte em poucas palavras o que o seu negócio vende."></textarea>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-success w-100">Criar conta</button>
+
+            <p class="text-center mt-3">
+                <a href="/">Já possui conta? Faça login</a>
+            </p>
 
         </form>
 
@@ -151,10 +152,6 @@
                 confirmar.classList.add("is-invalid");
                 confirmar.setAttribute("aria-invalid", "true");
                 confirmar.focus();
-            } else {
-                erro.style.display = "none";
-                confirmar.classList.remove("is-invalid");
-                confirmar.removeAttribute("aria-invalid");
             }
         });
 

@@ -24,7 +24,7 @@
          alt="Logotipo da ShopMix"
          style="max-width: 200px;">
     <h1 class="mt-3">Bem-vindo ao ShopMix</h1>
-    <p>Faça login para continuar</p>
+    <p>Sistema de gerenciamento para empreendimentos</p>
 </header>
 
 <main id="conteudo-principal" class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
@@ -32,6 +32,14 @@
     <section class="card p-4 shadow" style="width: 100%; max-width: 400px;" aria-labelledby="titulo-login">
 
         <h2 id="titulo-login" class="h3 mb-3 text-center">Login</h2>
+
+        <!-- Mensagem de sucesso após cadastro -->
+        <div th:if="${param.cadastro}"
+             class="alert alert-success"
+             role="status"
+             aria-live="polite">
+            Cadastro realizado com sucesso! Faça login para acessar seu empreendimento.
+        </div>
 
         <!-- Mensagem de erro anunciada por leitores de tela -->
         <div th:if="${param.erro}"

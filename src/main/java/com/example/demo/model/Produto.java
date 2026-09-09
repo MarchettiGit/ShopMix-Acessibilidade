@@ -9,95 +9,105 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Informações principais
     private String nome;
-    private Double preco;
+    @Column(length = 1000)
     private String descricao;
-    private String imagemUrl;
-    private Boolean ativo;
-    private Integer quantidade;
     private String categoria;
+    private String subcategoria;
+    private String marca;
+    private String sku;
     private String plataforma;
+
+    // Valores
+    private Double precoCusto;
+    private Double preco;       // preço de venda
+    private Double desconto;    // em %
+
+    // Estoque
+    private Integer quantidade;
+    private Integer estoqueMinimo;
+    private Boolean ativo;
     private Boolean freteGratis;
 
-    // GETTERS E SETTERS
+    // Imagem
+    private String imagemUrl;
+    private String imagemAlt;
 
+    // Informações adicionais
+    private Double peso;
+    private Double altura;
+    private Double largura;
+    private Double comprimento;
+    private String unidadeMedida;
+    private String codigoBarras;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
 
-    public Double getPreco() {
-        return preco;
-    }
+    public String getSubcategoria() { return subcategoria; }
+    public void setSubcategoria(String subcategoria) { this.subcategoria = subcategoria; }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
+    public String getMarca() { return marca; }
+    public void setMarca(String marca) { this.marca = marca; }
 
-    public String getDescricao() {
-        return descricao;
-    }
+    public String getSku() { return sku; }
+    public void setSku(String sku) { this.sku = sku; }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    public String getImagemUrl() {
-        return imagemUrl;
-    }
+    public String getPlataforma() { return plataforma; }
+    public void setPlataforma(String plataforma) { this.plataforma = plataforma; }
 
-    public void setImagemUrl(String imagemUrl) {
-        this.imagemUrl = imagemUrl;
-    }
+    public Double getPrecoCusto() { return precoCusto; }
+    public void setPrecoCusto(Double precoCusto) { this.precoCusto = precoCusto; }
 
-    public Boolean getAtivo() {
-        return ativo;
-    }
+    public Double getPreco() { return preco; }
+    public void setPreco(Double preco) { this.preco = preco; }
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
+    public Double getDesconto() { return desconto; }
+    public void setDesconto(Double desconto) { this.desconto = desconto; }
 
-    public Integer getQuantidade() {
-        return quantidade;
-    }
+    public Integer getQuantidade() { return quantidade; }
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
+    public Integer getEstoqueMinimo() { return estoqueMinimo; }
+    public void setEstoqueMinimo(Integer estoqueMinimo) { this.estoqueMinimo = estoqueMinimo; }
 
-    public String getCategoria() {
-        return categoria;
-    }
+    public Boolean getAtivo() { return ativo; }
+    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
+    public Boolean getFreteGratis() { return freteGratis; }
+    public void setFreteGratis(Boolean freteGratis) { this.freteGratis = freteGratis; }
 
-    public String getPlataforma() {
-        return plataforma;
-    }
+    public String getImagemUrl() { return imagemUrl; }
+    public void setImagemUrl(String imagemUrl) { this.imagemUrl = imagemUrl; }
 
-    public void setPlataforma(String plataforma) {
-        this.plataforma = plataforma;
-    }
+    public String getImagemAlt() { return imagemAlt; }
+    public void setImagemAlt(String imagemAlt) { this.imagemAlt = imagemAlt; }
 
-    public Boolean getFreteGratis() {
-        return freteGratis;
-    }
+    public Double getPeso() { return peso; }
+    public void setPeso(Double peso) { this.peso = peso; }
 
-    public void setFreteGratis(Boolean freteGratis) {
-        this.freteGratis = freteGratis;
-    }
+    public Double getAltura() { return altura; }
+    public void setAltura(Double altura) { this.altura = altura; }
+
+    public Double getLargura() { return largura; }
+    public void setLargura(Double largura) { this.largura = largura; }
+
+    public Double getComprimento() { return comprimento; }
+    public void setComprimento(Double comprimento) { this.comprimento = comprimento; }
+
+    public String getUnidadeMedida() { return unidadeMedida; }
+    public void setUnidadeMedida(String unidadeMedida) { this.unidadeMedida = unidadeMedida; }
+
+    public String getCodigoBarras() { return codigoBarras; }
+    public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
 }
