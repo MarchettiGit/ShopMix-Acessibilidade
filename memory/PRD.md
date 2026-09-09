@@ -45,7 +45,8 @@ Arquivos modificados:
 ## Leitura por voz (2026-06)
 - Seção "Leitura por voz" no painel de acessibilidade usando a Web Speech API nativa (`speechSynthesis`), sem back-end nem chaves externas; voz pt-BR quando disponível.
 - Recursos: "Ler a página" (lê o `<main>`/conteúdo principal), "Parar" e alternador "Ler itens ao focar" (lê o nome acessível de links/botões/campos/cards ao receber foco por teclado ou ao passar o mouse).
-- Preferência `readOnFocus` salva em localStorage; Esc interrompe a fala; seção se oculta se o navegador não suportar.
+- "Ler texto selecionado" (alternador): quando ativo, selecionar um trecho o lê automaticamente; atalho Alt+L lê a seleção a qualquer momento. Ignora seleções dentro do próprio painel.
+- Preferências `readOnFocus` e `readSelection` salvas em localStorage; Esc interrompe a fala; seção se oculta se o navegador não suportar.
 
 ## Backlog / próximos passos
 - P1: Rodar localmente (Maven + MySQL) e validar com leitor de tela (NVDA/VoiceOver) + auditoria Lighthouse/axe.

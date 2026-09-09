@@ -140,6 +140,12 @@ textarea:focus-visible,
     width: 100%;
     margin-top: 8px;
 }
+.a11y-panel .a11y-help {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: #565c63;
+}
 .a11y-panel button.a11y-reset {
     width: 100%;
     min-height: 44px;

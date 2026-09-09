@@ -12,7 +12,7 @@
     var STEP = 12.5;     // passo de aumento/diminuição
     var DEFAULT = 100;   // tamanho padrão
 
-    var state = { fontScale: DEFAULT, highContrast: false, theme: null, readOnFocus: false };
+    var state = { fontScale: DEFAULT, highContrast: false, theme: null, readOnFocus: false, readSelection: false };
 
     // ---- Leitura por voz (Web Speech API nativa do navegador) ----
     var speechSupported = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
@@ -108,6 +108,61 @@
         announce(state.readOnFocus ? 'Leitura ao focar itens ativada.' : 'Leitura ao focar itens desativada.');
     }
 
+    // ---- Ler texto selecionado ----
+    function getSelectionText() {
+        var sel = window.getSelection ? window.getSelection() : null;
+        if (!sel || sel.isCollapsed) { return ''; }
+        // Ignora seleção feita dentro do próprio painel de acessibilidade
+        var node = sel.anchorNode;
+        var el = node && node.nodeType === 3 ? node.parentElement : node;
+        if (el && el.closest && el.closest('#a11y-panel')) { return ''; }
+        return sel.toString().trim();
+    }
+
+    function readSelection() {
+        if (!speechSupported) {
+            announce('Leitura por voz não é suportada neste navegador.');
+            return;
+        }
+        var text = getSelectionText();
+        if (text) {
+            speak(text);
+            announce('Lendo o texto selecionado.');
+        } else {
+            announce('Nenhum texto selecionado.');
+        }
+    }
+
+    var selectionReadTimer = null;
+    function onSelectionRead() {
+        clearTimeout(selectionReadTimer);
+        selectionReadTimer = setTimeout(function () {
+            var text = getSelectionText();
+            if (text) { speak(text); }
+        }, 300);
+    }
+
+    function applyReadSelection() {
+        var btn = document.getElementById('a11y-readselection-btn');
+        if (btn) { btn.setAttribute('aria-pressed', String(state.readSelection)); }
+        document.removeEventListener('mouseup', onSelectionRead, true);
+        document.removeEventListener('keyup', onSelectionRead, true);
+        if (state.readSelection && speechSupported) {
+            document.addEventListener('mouseup', onSelectionRead, true);
+            document.addEventListener('keyup', onSelectionRead, true);
+        }
+    }
+
+    function toggleReadSelection() {
+        if (!speechSupported) {
+            announce('Leitura por voz não é suportada neste navegador.');
+            return;
+        }
+        state.readSelection = !state.readSelection;
+        applyReadSelection(); save();
+        announce(state.readSelection ? 'Leitura de texto selecionado ativada.' : 'Leitura de texto selecionado desativada.');
+    }
+
     function load() {
         try {
             var saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -116,6 +171,7 @@
                 if (typeof saved.highContrast === 'boolean') { state.highContrast = saved.highContrast; }
                 if (saved.theme === 'light' || saved.theme === 'dark') { state.theme = saved.theme; }
                 if (typeof saved.readOnFocus === 'boolean') { state.readOnFocus = saved.readOnFocus; }
+                if (typeof saved.readSelection === 'boolean') { state.readSelection = saved.readSelection; }
             }
         } catch (e) { /* ignora armazenamento indisponível */ }
     }
@@ -183,8 +239,8 @@
     }
     function reset() {
         stopSpeak();
-        state = { fontScale: DEFAULT, highContrast: false, theme: null, readOnFocus: false };
-        apply(); applyReadOnFocus(); save();
+        state = { fontScale: DEFAULT, highContrast: false, theme: null, readOnFocus: false, readSelection: false };
+        apply(); applyReadOnFocus(); applyReadSelection(); save();
         announce('Configurações de acessibilidade restauradas.');
     }
 
@@ -234,6 +290,7 @@
         var readBtn = document.getElementById('a11y-read-btn');
         var stopBtn = document.getElementById('a11y-stop-btn');
         var readFocusBtn = document.getElementById('a11y-readfocus-btn');
+        var readSelBtn = document.getElementById('a11y-readselection-btn');
         var voiceGroup = document.getElementById('a11y-voice-group');
 
         if (!speechSupported && voiceGroup) {
@@ -242,7 +299,17 @@
         if (readBtn) { readBtn.addEventListener('click', readMain); }
         if (stopBtn) { stopBtn.addEventListener('click', function () { stopSpeak(); announce('Leitura interrompida.'); }); }
         if (readFocusBtn) { readFocusBtn.addEventListener('click', toggleReadOnFocus); }
+        if (readSelBtn) { readSelBtn.addEventListener('click', toggleReadSelection); }
         applyReadOnFocus();
+        applyReadSelection();
+
+        // Atalho de teclado: Alt+L lê o texto selecionado a qualquer momento
+        document.addEventListener('keydown', function (e) {
+            if (e.altKey && (e.key === 'l' || e.key === 'L')) {
+                e.preventDefault();
+                readSelection();
+            }
+        });
 
         // Fechar com Esc e devolver o foco ao botão
         document.addEventListener('keydown', function (e) {
