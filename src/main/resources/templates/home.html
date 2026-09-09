@@ -76,6 +76,11 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- ALTERNADOR DE TEMA -->
+    <div class="px-2">
+        <button th:replace="~{fragments/acessibilidade :: tema}"></button>
+    </div>
+
     <!-- LOGOUT -->
     <div class="px-3">
         <form th:action="@{/logout}" method="post">

@@ -217,7 +217,46 @@ html.a11y-high-contrast .a11y-panel {
     border: 2px solid #000000 !important;
 }
 
-/* ---------- 6. Respeitar preferência de menos movimento ---------- */
+/* ---------- 6. Alternador de tema claro/escuro ---------- */
+.a11y-topbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 16px;
+}
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+    line-height: 1;
+    min-height: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.theme-toggle:hover {
+    background: rgba(127, 127, 127, 0.18);
+}
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+/* Fundo escuro nas telas de login/cadastro (que usam gradiente claro no style.css) */
+html[data-bs-theme="dark"] body {
+    background: #16191d !important;
+    color: #e9ecef;
+}
+html[data-bs-theme="dark"] .header .text h1 {
+    color: #e9ecef;
+}
+
+/* ---------- 7. Respeitar preferência de menos movimento ---------- */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.001ms !important;

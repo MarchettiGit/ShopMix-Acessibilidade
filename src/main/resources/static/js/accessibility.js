@@ -12,7 +12,7 @@
     var STEP = 12.5;     // passo de aumento/diminuição
     var DEFAULT = 100;   // tamanho padrão
 
-    var state = { fontScale: DEFAULT, highContrast: false };
+    var state = { fontScale: DEFAULT, highContrast: false, theme: null };
 
     function load() {
         try {
@@ -20,6 +20,7 @@
             if (saved && typeof saved === 'object') {
                 if (typeof saved.fontScale === 'number') { state.fontScale = saved.fontScale; }
                 if (typeof saved.highContrast === 'boolean') { state.highContrast = saved.highContrast; }
+                if (saved.theme === 'light' || saved.theme === 'dark') { state.theme = saved.theme; }
             }
         } catch (e) { /* ignora armazenamento indisponível */ }
     }
@@ -28,11 +29,41 @@
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
     }
 
+    // Tema efetivo: a escolha salva ou, na 1ª visita, a preferência do sistema.
+    function effectiveTheme() {
+        if (state.theme === 'light' || state.theme === 'dark') { return state.theme; }
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { return 'dark'; }
+        return 'light';
+    }
+
+    function updateThemeButton() {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) { return; }
+        var isDark = effectiveTheme() === 'dark';
+        var sun = btn.querySelector('.theme-icon-light');
+        var moon = btn.querySelector('.theme-icon-dark');
+        var text = btn.querySelector('.theme-toggle-text');
+        // Em modo escuro, o botão oferece voltar ao claro (mostra sol).
+        if (sun) { sun.hidden = !isDark; }
+        if (moon) { moon.hidden = isDark; }
+        if (text) { text.textContent = isDark ? 'Modo claro' : 'Modo escuro'; }
+        btn.setAttribute('aria-label', isDark ? 'Ativar modo claro' : 'Ativar modo escuro');
+        btn.setAttribute('aria-pressed', String(isDark));
+    }
+
     function apply() {
         document.documentElement.style.fontSize = state.fontScale + '%';
         document.documentElement.classList.toggle('a11y-high-contrast', state.highContrast);
+        document.documentElement.setAttribute('data-bs-theme', effectiveTheme());
         var contrastBtn = document.getElementById('a11y-contrast-btn');
         if (contrastBtn) { contrastBtn.setAttribute('aria-pressed', String(state.highContrast)); }
+        updateThemeButton();
+    }
+
+    function toggleTheme() {
+        state.theme = (effectiveTheme() === 'dark') ? 'light' : 'dark';
+        apply(); save();
+        announce(state.theme === 'dark' ? 'Modo escuro ativado.' : 'Modo claro ativado.');
     }
 
     function announce(msg) {
@@ -56,7 +87,7 @@
         announce(state.highContrast ? 'Alto contraste ativado.' : 'Alto contraste desativado.');
     }
     function reset() {
-        state = { fontScale: DEFAULT, highContrast: false };
+        state = { fontScale: DEFAULT, highContrast: false, theme: null };
         apply(); save();
         announce('Configurações de acessibilidade restauradas.');
     }
@@ -94,6 +125,9 @@
         if (con) { con.addEventListener('click', toggleContrast); }
         if (res) { res.addEventListener('click', reset); }
 
+        var themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) { themeBtn.addEventListener('click', toggleTheme); }
+
         // Fechar com Esc e devolver o foco ao botão
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
@@ -106,11 +140,12 @@
         });
     }
 
-    // Aplica o tamanho o quanto antes para evitar "flash" de layout.
+    // Aplica o tamanho e o tema o quanto antes para evitar "flash" de layout.
     load();
     if (document.documentElement) {
         document.documentElement.style.fontSize = state.fontScale + '%';
         document.documentElement.classList.toggle('a11y-high-contrast', state.highContrast);
+        document.documentElement.setAttribute('data-bs-theme', effectiveTheme());
     }
 
     if (document.readyState === 'loading') {

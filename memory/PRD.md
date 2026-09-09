@@ -37,6 +37,11 @@ Arquivos modificados:
 - Formulários: mensagens explicativas próximas ao campo; feedback nativo do Bootstrap.
 - Responsividade: mantida via Bootstrap; painel A11y responsivo.
 
+## Alternador de tema (2026-06)
+- Botão claro/escuro acessível no topo de todas as páginas (navbar na home; barra superior nas demais), via fragmento reutilizável (`tema` / `barra-tema`).
+- Integrado ao Bootstrap 5.3 (`data-bs-theme`) e ao `accessibility.js`: escolha salva em localStorage, 1ª visita respeita `prefers-color-scheme`, anúncio via aria-live, `aria-pressed`/`aria-label` dinâmicos, sem flash no carregamento.
+- CSS: `.theme-toggle` adapta cor ao contexto e fundo escuro aplicado às telas de login/cadastro.
+
 ## Backlog / próximos passos
 - P1: Rodar localmente (Maven + MySQL) e validar com leitor de tela (NVDA/VoiceOver) + auditoria Lighthouse/axe.
 - P2: Páginas de carrinho e checkout acessíveis (não existem hoje — fora do escopo atual por escolha do usuário).
