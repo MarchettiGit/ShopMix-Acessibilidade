@@ -12,8 +12,9 @@ mensagens de erro, imagens, navegação, responsividade e simplicidade.
 - Nenhuma mudança em models, banco, rotas ou APIs.
 
 ## Ambiente
-- Este ambiente (Node/Python) não possui Java 25 + Maven + MySQL. Usuário executa localmente.
-- Validação feita de forma estática (estrutura HTML balanceada + revisão de código). Teste em runtime pendente no ambiente local do usuário.
+- JDK 25 instalado em /root/jdk25 (aarch64); MariaDB + Ollama reinstaláveis via /root/run.sh (pods reiniciam: processos morrem, rodar tudo num único comando).
+- App de teste: porta 8090, db shopmix user shopmix/teste (somente teste local; application.properties do usuário intacto). Login seed: admin@email.com / 123456.
+- Stub de Ollama para testes: /app/memory/ollama_stub.py <porta>.
 
 ## Implementado (data: 2026-06)
 Arquivos novos:
@@ -48,7 +49,20 @@ Arquivos modificados:
 - "Ler texto selecionado" (alternador): quando ativo, selecionar um trecho o lê automaticamente; atalho Alt+L lê a seleção a qualquer momento. Ignora seleções dentro do próprio painel.
 - Preferências `readOnFocus` e `readSelection` salvas em localStorage; Esc interrompe a fala; seção se oculta se o navegador não suportar.
 
+## Empreendimentos/pedidos/tutorial (2026-06)
+- Usuario: nomeEmpreendimento, descricaoEmpreendimento, primeiroAcesso; Produto expandido (custo, desconto, estoque mínimo, SKU, medidas etc.); dashboard com métricas reais; /tutorial/concluir; /pedidos/entregar/{id}.
+- Compila (mvn compile OK), app inicia com MySQL/MariaDB, login e cadastro de produto testados via curl.
+
+## Assistente de Acessibilidade com IA (2026-06) — CONCLUÍDO e testado
+- Ollama local (padrão llama3.1:8b), JDK HttpClient + JSON Schema (`format`), temperature 0.2, sem Spring AI.
+- AcessibilidadeService + AcessibilidadeController (/ia/acessibilidade/status, /analisar), DTOs em `dto/`.
+- Avisos anti-invenção (números e termos sensíveis não informados). 503 amigável quando offline; cadastro nunca bloqueado.
+- UI em anunciar.html: Aplicar / Editar / Manter original / Analisar novamente; sugestão de alt text. Docs: /app/docs/ASSISTENTE_IA.md.
+- Testado: stub (fluxo completo UI), Ollama real com qwen2.5:1.5b (200 OK, ~50s), llama3.1:8b em CPU deste pod excedeu 120s (timeout tratado) → padrão agora 180s; offline (503 + mensagem, produto salvo).
+
 ## Backlog / próximos passos
+- P0: Redesign visual SaaS (menu lateral fixo no desktop, recolhível no celular; azul-petróleo #0f5e74, verde para positivos) em todas as páginas, preservando A11y.
+- P0: Tutorial de primeiro acesso atualizado (navegação, produtos, pedidos, acessibilidade, IA).
 - P1: Rodar localmente (Maven + MySQL) e validar com leitor de tela (NVDA/VoiceOver) + auditoria Lighthouse/axe.
 - P2: Páginas de carrinho e checkout acessíveis (não existem hoje — fora do escopo atual por escolha do usuário).
 - P2: Tornar a busca de pedidos server-side (hoje é filtro client-side na tabela renderizada).

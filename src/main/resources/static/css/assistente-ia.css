@@ -1,0 +1,48 @@
+.ia-assistente {
+    border: 1px solid var(--bs-border-color);
+    border-left: 4px solid #0f5e74;
+    border-radius: .75rem;
+    padding: 1rem 1.25rem;
+    background: var(--bs-body-bg);
+}
+.ia-cabecalho {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-ia {
+    background: #0f5e74;
+    border-color: #0f5e74;
+    color: #fff;
+}
+.btn-ia:hover, .btn-ia:focus-visible { background: #0b4a5c; border-color: #0b4a5c; color: #fff; }
+.btn-ia:disabled { background: #5c7f89; border-color: #5c7f89; color: #fff; }
+.ia-resultado {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--bs-border-color);
+}
+.ia-resultado:focus { outline: 3px solid #0f5e74; outline-offset: 4px; }
+.ia-sub { font-weight: 600; }
+.ia-lista { padding-left: 1.1rem; margin-bottom: 0; }
+.ia-oportunidades { padding-left: 1.1rem; }
+.ia-oportunidades li { margin-bottom: .75rem; }
+.ia-prioridade {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    padding: .1rem .5rem;
+    border-radius: 999px;
+    margin-right: .4rem;
+    border: 1px solid currentColor;
+}
+.ia-prioridade-ALTA { color: #a4161a; background: #fde8e8; }
+.ia-prioridade-MEDIA { color: #8a5300; background: #fff4de; }
+.ia-prioridade-BAIXA { color: #1d6b3a; background: #e6f4ea; }
+[data-bs-theme="dark"] .ia-prioridade-ALTA { color: #ffb3b3; background: transparent; }
+[data-bs-theme="dark"] .ia-prioridade-MEDIA { color: #ffd591; background: transparent; }
+[data-bs-theme="dark"] .ia-prioridade-BAIXA { color: #9be3b4; background: transparent; }
+#ia-sugestao:not([readonly]) { border-color: #0f5e74; box-shadow: 0 0 0 .2rem rgba(15, 94, 116, .2); }

@@ -9,6 +9,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/checkout.css" rel="stylesheet"/>
+    <link href="/css/assistente-ia.css" rel="stylesheet"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="shortcut icon" href="/assets/imgs/ico/shopico.ico" type="image/x-icon">
 
     <!-- Acessibilidade -->
@@ -85,6 +88,68 @@
                                 <textarea name="descricao" id="descricao" class="form-control" rows="3" required
                                           th:text="${produto != null ? produto.descricao : ''}"></textarea>
                                 <div class="invalid-feedback">Descreva o produto.</div>
+                            </div>
+                            <div class="col-12">
+                                <section class="ia-assistente" id="ia-assistente" aria-labelledby="ia-titulo">
+                                    <div class="ia-cabecalho">
+                                        <div>
+                                            <h3 id="ia-titulo" class="h6 mb-1">Assistente de acessibilidade</h3>
+                                            <p class="small text-body-secondary mb-0" id="ia-status" data-testid="ia-status">
+                                                Verificando disponibilidade do assistente...
+                                            </p>
+                                        </div>
+                                        <button type="button" class="btn btn-ia" id="ia-analisar" data-testid="ia-analisar-btn"
+                                                aria-describedby="ia-status ia-aviso">
+                                            <span class="spinner-border spinner-border-sm me-1 d-none" aria-hidden="true" id="ia-spinner"></span>
+                                            <span id="ia-analisar-texto">Analisar acessibilidade com IA</span>
+                                        </button>
+                                    </div>
+                                    <p class="small text-body-secondary mb-0 mt-2" id="ia-aviso">
+                                        As sugestões são recomendações automatizadas e não substituem uma revisão humana
+                                        nem constituem certificação de acessibilidade. Nada é alterado sem a sua confirmação.
+                                    </p>
+                                    <div id="ia-mensagem" role="status" aria-live="polite" class="mt-2" data-testid="ia-mensagem"></div>
+                                    <div id="ia-resultado" class="ia-resultado d-none" tabindex="-1" data-testid="ia-resultado"
+                                         aria-labelledby="ia-resultado-titulo">
+                                        <h4 id="ia-resultado-titulo" class="h6">Resultado da análise</h4>
+                                        <p id="ia-resumo" data-testid="ia-resumo"></p>
+                                        <div id="ia-avisos"></div>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <h5 class="h6 ia-sub">Pontos positivos</h5>
+                                                <ul id="ia-positivos" class="ia-lista" data-testid="ia-positivos"></ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5 class="h6 ia-sub">Dados a confirmar (não informados)</h5>
+                                                <ul id="ia-confirmar" class="ia-lista" data-testid="ia-confirmar"></ul>
+                                            </div>
+                                        </div>
+                                        <h5 class="h6 ia-sub mt-3">Oportunidades de melhoria</h5>
+                                        <ol id="ia-oportunidades" class="ia-oportunidades" data-testid="ia-oportunidades"></ol>
+
+                                        <label for="ia-sugestao" class="form-label h6 ia-sub mt-3">Sugestão de descrição revisada</label>
+                                        <p class="small text-body-secondary" id="ia-sugestao-ajuda">
+                                            Usa somente os dados que você informou. Trechos entre colchetes indicam informações que você precisa completar.
+                                        </p>
+                                        <textarea id="ia-sugestao" class="form-control" rows="5" readonly
+                                                  aria-describedby="ia-sugestao-ajuda" data-testid="ia-sugestao"></textarea>
+
+                                        <div id="ia-alt-bloco" class="mt-3 d-none">
+                                            <label for="ia-sugestao-alt" class="form-label h6 ia-sub">Sugestão de texto alternativo da imagem</label>
+                                            <div class="input-group">
+                                                <input type="text" id="ia-sugestao-alt" class="form-control" data-testid="ia-sugestao-alt">
+                                                <button type="button" class="btn btn-outline-secondary" id="ia-aplicar-alt" data-testid="ia-aplicar-alt-btn">Usar no texto alternativo</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-wrap gap-2 mt-3" role="group" aria-label="Ações para a sugestão">
+                                            <button type="button" class="btn btn-success" id="ia-aplicar" data-testid="ia-aplicar-btn">Aplicar sugestão</button>
+                                            <button type="button" class="btn btn-outline-primary" id="ia-editar" aria-pressed="false" data-testid="ia-editar-btn">Editar sugestão</button>
+                                            <button type="button" class="btn btn-outline-secondary" id="ia-manter" data-testid="ia-manter-btn">Manter descrição original</button>
+                                            <button type="button" class="btn btn-link" id="ia-reanalisar" data-testid="ia-reanalisar-btn">Analisar novamente</button>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="categoria">Categoria *</label>
@@ -314,6 +379,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <th:block th:replace="~{fragments/acessibilidade :: scripts}"></th:block>
+<script src="/js/assistente-ia.js"></script>
 
 </body>
 </html>
