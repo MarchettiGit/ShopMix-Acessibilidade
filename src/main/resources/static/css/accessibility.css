@@ -249,12 +249,58 @@ html.a11y-high-contrast .a11y-panel {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
+
+/* Botão visível no modo claro */
+html[data-bs-theme="light"] .theme-toggle,
+html:not([data-bs-theme="dark"]) .theme-toggle {
+    color: #212529 !important;
+    background-color: #ffffff;
+    border-color: #6c757d;
+}
+
+/* Hover no modo claro */
+html[data-bs-theme="light"] .theme-toggle:hover,
+html:not([data-bs-theme="dark"]) .theme-toggle:hover {
+    color: #000000 !important;
+    background-color: #e9ecef;
+    border-color: #495057;
+}
+
+/* Ícone e texto acompanham a cor do botão */
+.theme-toggle svg {
+    fill: currentColor;
+}
+
+.theme-toggle .theme-toggle-text {
+    color: inherit !important;
+}
 .theme-toggle:hover {
     background: rgba(127, 127, 127, 0.18);
 }
 .theme-toggle svg {
     width: 18px;
     height: 18px;
+    fill: currentColor;
+}
+
+/* Corrige as cores do botão no modo escuro */
+html[data-bs-theme="dark"] .theme-toggle {
+    color: #f8fafc !important;
+    background-color: #263244;
+    border-color: #475569;
+}
+
+html[data-bs-theme="dark"] .theme-toggle:hover {
+    color: #ffffff !important;
+    background-color: #334155;
+    border-color: #64748b;
+}
+
+.theme-toggle .theme-toggle-text {
+    color: inherit;
+}
+
+.theme-toggle svg {
     fill: currentColor;
 }
 

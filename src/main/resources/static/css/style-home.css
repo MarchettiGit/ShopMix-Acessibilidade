@@ -87,3 +87,33 @@ body {
 canvas {
     max-width: 100%;
 }
+
+/* ========================================
+   SHOPMIX — BARRA LATERAL NO MODO ESCURO
+   ======================================== */
+
+html[data-bs-theme="dark"] .sidebar,
+html[data-bs-theme="dark"] .sidebar a,
+html[data-bs-theme="dark"] .sidebar .nav-link,
+html[data-bs-theme="dark"] .sidebar .nav-link span {
+    color: #f1f5f9 !important;
+}
+
+/* Ícones da barra lateral */
+html[data-bs-theme="dark"] .sidebar svg,
+html[data-bs-theme="dark"] .sidebar i {
+    color: #f1f5f9 !important;
+    fill: currentColor;
+}
+
+/* Item selecionado */
+html[data-bs-theme="dark"] .sidebar .nav-link.active {
+    color: #ffffff !important;
+    background-color: #334155 !important;
+}
+
+/* Passar o mouse */
+html[data-bs-theme="dark"] .sidebar .nav-link:hover {
+    color: #ffffff !important;
+    background-color: #293548;
+}

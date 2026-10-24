@@ -195,7 +195,7 @@ public class HomeController {
             if (file != null && !file.isEmpty()) {
                 String nomeArquivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
                 String caminho = System.getProperty("user.dir")
-                        + "/demo/src/main/resources/static/uploads/";
+                        + "/src/main/resources/static/uploads/";
 
                 File pasta = new File(caminho);
                 if (!pasta.exists()) {
@@ -210,5 +210,6 @@ public class HomeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
